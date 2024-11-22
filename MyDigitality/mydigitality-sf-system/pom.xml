@@ -50,13 +50,6 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
-			<groupId>aa72ed85-99ff-417d-a0c4-e360a1698334</groupId>
-			<artifactId>sf-sapi</artifactId>
-			<version>1.0.7</version>
-			<classifier>raml</classifier>
-			<type>zip</type>
-		</dependency>
-		<dependency>
 			<groupId>org.mule.modules</groupId>
 			<artifactId>mule-apikit-module</artifactId>
 			<version>1.11.2</version>
@@ -67,6 +60,13 @@
 			<artifactId>mule-salesforce-connector</artifactId>
 			<version>10.22.4</version>
 			<classifier>mule-plugin</classifier>
+		</dependency>
+		<dependency>
+			<groupId>aa72ed85-99ff-417d-a0c4-e360a1698334</groupId>
+			<artifactId>sf-sapi</artifactId>
+			<version>1.0.8</version>
+			<classifier>raml</classifier>
+			<type>zip</type>
 		</dependency>
 	</dependencies>
 
