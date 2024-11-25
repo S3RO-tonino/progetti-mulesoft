@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.mycompany</groupId>
+	<groupId>aa72ed85-99ff-417d-a0c4-e360a1698334</groupId>
 	<artifactId>mydigitality-process</artifactId>
 	<version>1.0.0</version>
 	<packaging>mule-application</packaging>
@@ -57,16 +57,16 @@
 		</dependency>
 		<dependency>
 			<groupId>aa72ed85-99ff-417d-a0c4-e360a1698334</groupId>
-			<artifactId>mule-plugin-sf-sapi</artifactId>
-			<version>1.0.7</version>
-			<classifier>mule-plugin</classifier>
-		</dependency>
-		<dependency>
-			<groupId>aa72ed85-99ff-417d-a0c4-e360a1698334</groupId>
 			<artifactId>mydigitality-sf-papi</artifactId>
 			<version>1.0.4</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
+		</dependency>
+		<dependency>
+			<groupId>aa72ed85-99ff-417d-a0c4-e360a1698334</groupId>
+			<artifactId>mule-plugin-sf-sapi</artifactId>
+			<version>1.0.9</version>
+			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>
 

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns:my-digitality-papi="http://www.mulesoft.org/schema/mule/my-digitality-papi" xmlns:my-digitality-sf-papi="http://www.mulesoft.org/schema/mule/my-digitality-sf-papi" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:sf-sapi="http://www.mulesoft.org/schema/mule/sf-sapi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd  http://www.mulesoft.org/schema/mule/sf-sapi http://www.mulesoft.org/schema/mule/sf-sapi/current/mule-sf-sapi.xsd
-http://www.mulesoft.org/schema/mule/my-digitality-sf-papi http://www.mulesoft.org/schema/mule/my-digitality-sf-papi/current/mule-my-digitality-sf-papi.xsd
-http://www.mulesoft.org/schema/mule/my-digitality-papi http://www.mulesoft.org/schema/mule/my-digitality-papi/current/mule-my-digitality-papi.xsd">
+<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:my-digitality-papi="http://www.mulesoft.org/schema/mule/my-digitality-papi" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd  http://www.mulesoft.org/schema/mule/my-digitality-papi http://www.mulesoft.org/schema/mule/my-digitality-papi/current/mule-my-digitality-papi.xsd">
     <http:listener-config name="mydigitality-xapi-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
-    <apikit:config name="mydigitality-xapi-config" api="resource::aa72ed85-99ff-417d-a0c4-e360a1698334:mydigitality-xapi:1.0.4:raml:zip:mydigitality-xapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
-    <my-digitality-sf-papi:config name="MyDigitality_SF_papi_Config" doc:name="MyDigitality-SF-papi Config" doc:id="e957c35f-b753-419e-9ff7-1013ade6042f" property_host="mydigitality-process-eg03ci.5sc6y6-1.usa-e2.cloudhub.io" property_port="443" property_basePath="/api" property_protocol="HTTPS" />
+    <apikit:config name="mydigitality-xapi-config" api="resource::aa72ed85-99ff-417d-a0c4-e360a1698334:mydigitality-xapi:1.0.5:raml:zip:mydigitality-xapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <my-digitality-papi:config name="MyDigitality_papi_Config" doc:name="MyDigitality-papi Config" doc:id="046292cb-e4e6-442e-bd99-25baca7de351" property_host="mydigitality-process-eg03ci.5sc6y6-2.usa-e2.cloudhub.io" property_port="443" property_basePath="/api" property_protocol="HTTPS" />
 	<flow name="mydigitality-xapi-main">
         <http:listener config-ref="mydigitality-xapi-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
@@ -136,7 +134,7 @@ output application/json
             </ee:variables>
         </ee:transform>
         <logger level="INFO" message="get:\clients\(client_id):mydigitality-xapi-config" />
-		<my-digitality-sf-papi:retrieve-client-by-client-id doc:name="Retrieve client by client id" doc:id="bfcfe77a-624d-4074-b865-2508ec9affdf" config-ref="MyDigitality_SF_papi_Config" client-id="#[vars.client_id]"/>
+		<my-digitality-papi:retrieve-client-by-client-id doc:name="Retrieve client by client id" doc:id="0789f7e8-1ae3-4bec-8a6a-54d5569bba0b" config-ref="MyDigitality_papi_Config" client-id="#[vars.client_id]"/>
     </flow>
     <flow name="post:\clients:application\json:mydigitality-xapi-config">
         <logger level="INFO" message="post:\clients:application\json:mydigitality-xapi-config" />

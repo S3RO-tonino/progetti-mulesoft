@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mule xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+<mule xmlns:sf-sapi="http://www.mulesoft.org/schema/mule/sf-sapi" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
+http://www.mulesoft.org/schema/mule/sf-sapi http://www.mulesoft.org/schema/mule/sf-sapi/current/mule-sf-sapi.xsd">
     <http:listener-config name="mydigitality-papi-httpListenerConfig">
-        <http:listener-connection host="0.0.0.0" port="8082" />
+        <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
     <apikit:config name="mydigitality-papi-config" api="resource::aa72ed85-99ff-417d-a0c4-e360a1698334:mydigitality-sf-papi:1.0.4:raml:zip:mydigitality-papi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
-    <flow name="mydigitality-papi-main">
+    <sf-sapi:config name="SF_sapi_Config" doc:name="SF-sapi Config" doc:id="f2ceb76b-ff59-4027-a854-24fd876f356f" property_host="mydigitality-sf-system-eg03ci.5sc6y6-4.usa-e2.cloudhub.io" property_port="443" property_basePath="/api" property_protocol="HTTPS" />
+	<flow name="mydigitality-papi-main">
         <http:listener config-ref="mydigitality-papi-httpListenerConfig" path="/api/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers>#[vars.outboundHeaders default {}]</http:headers>
@@ -133,5 +135,17 @@ output application/json
             </ee:variables>
         </ee:transform>
         <logger level="INFO" message="get:\clients\(client_id):mydigitality-papi-config" />
+		<sf-sapi:retrieve-client-by-client-id doc:name="Retrieve client by client id" doc:id="af2a4e7d-b14c-40d3-90f8-0202d2eae514" config-ref="SF_sapi_Config" accountid="#[vars.client_id]"/>
+		<ee:transform doc:name="Transform Message" doc:id="3d873c00-ef73-4e58-82fa-2b811e460b1a" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	SalesforceId: payload.Id,
+	LastName: payload.Name
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
     </flow>
 </mule>
