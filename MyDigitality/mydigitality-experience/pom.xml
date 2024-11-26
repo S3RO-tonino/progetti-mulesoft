@@ -4,7 +4,7 @@
 
 	<groupId>aa72ed85-99ff-417d-a0c4-e360a1698334</groupId>
 	<artifactId>mydigitality-experience</artifactId>
-	<version>1.0.6</version>
+	<version>1.0.0</version>
 	<packaging>mule-application</packaging>
 
 	<name>mydigitality-experience</name>
@@ -30,7 +30,7 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<classifier>mule-application</classifier>
+					<classifier>---- select project type ----</classifier>
 				</configuration>
 			</plugin>
 		</plugins>
