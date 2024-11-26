@@ -58,14 +58,14 @@
 		<dependency>
 			<groupId>aa72ed85-99ff-417d-a0c4-e360a1698334</groupId>
 			<artifactId>mydigitality-sf-papi</artifactId>
-			<version>1.0.4</version>
+			<version>1.0.5</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
 		<dependency>
 			<groupId>aa72ed85-99ff-417d-a0c4-e360a1698334</groupId>
 			<artifactId>mule-plugin-sf-sapi</artifactId>
-			<version>1.0.9</version>
+			<version>1.0.10</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>

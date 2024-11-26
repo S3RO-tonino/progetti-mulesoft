@@ -3,7 +3,7 @@
     <http:listener-config name="sf-sapi-httpListenerConfig">
         <http:listener-connection host="0.0.0.0" port="8081" />
     </http:listener-config>
-    <apikit:config name="sf-sapi-config" api="resource::aa72ed85-99ff-417d-a0c4-e360a1698334:sf-sapi:1.0.8:raml:zip:sf-sapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+    <apikit:config name="sf-sapi-config" api="resource::aa72ed85-99ff-417d-a0c4-e360a1698334:sf-sapi:1.0.10:raml:zip:sf-sapi.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
     <salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="ce64a90e-fc04-4cd6-80b9-6c85efcaca44">
         <salesforce:basic-connection username="matteo@kbbl.com" password="YeguyV57L2V6Dx8" securityToken="SFXeHLf648gtkLV8dRxmhGboF" />
     </salesforce:sfdc-config>
@@ -146,12 +146,27 @@ output application/json
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-payload[0]
-]]></ee:set-payload>
+payload[0]]]></ee:set-payload>
             </ee:message>
         </ee:transform>
     </flow>
     <flow name="get:\health-check:sf-sapi-config">
         <logger level="INFO" message="get:\health-check:sf-sapi-config" />
+    </flow>
+    <flow name="get:\accounts\tot_account:sf-sapi-config">
+        <logger level="INFO" message="get:\accounts\tot_account:sf-sapi-config" />
+		<salesforce:query doc:name="Query" doc:id="7f03a51b-32b2-44b6-a397-9789e0718452" config-ref="Salesforce_Config">
+			<salesforce:salesforce-query ><![CDATA[select Count(id) from account]]></salesforce:salesforce-query>
+		</salesforce:query>
+		<ee:transform doc:name="Transform Message" doc:id="d184b6e0-68c1-4acd-8921-28a714fd0bb6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	totale_accounts: payload[0].expr0
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
     </flow>
 </mule>

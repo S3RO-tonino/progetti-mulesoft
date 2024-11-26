@@ -64,7 +64,7 @@
 		<dependency>
 			<groupId>aa72ed85-99ff-417d-a0c4-e360a1698334</groupId>
 			<artifactId>sf-sapi</artifactId>
-			<version>1.0.8</version>
+			<version>1.0.10</version>
 			<classifier>raml</classifier>
 			<type>zip</type>
 		</dependency>
